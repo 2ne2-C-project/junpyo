@@ -1,0 +1,47 @@
+body {
+  background-image: url(../IMG/class_background.png);
+  background-size: cover;
+  background-position: center bottom;
+  height: 850px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+.charater {
+  position: absolute;
+  left: 40%;
+  bottom: 2%;
+  width: 280px;
+}
+
+.low-button {
+  margin: 10px 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  left: 41.5%;
+  bottom: 2%;
+}
+
+input[type="button"] {
+  width: 240px;
+  height: 100px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#result {
+  text-align: center;
+}
+
+.int-bar,
+.major-bar {
+  margin: 10px 0 0 10px;
+  padding-left: 10px;
+  background-color: white;
+  width: 50vh;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 30px;
+}
