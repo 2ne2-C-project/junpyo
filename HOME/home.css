@@ -29,6 +29,26 @@ input[type="button"] {
   margin-top: 10px;
 }
 
+.top-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.challenge-box {
+  display: flex;
+  margin: 10px 10px 0 0;
+}
+
+#challenge {
+  width: 180px;
+  height: 80px;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
 #result {
   text-align: center;
 }

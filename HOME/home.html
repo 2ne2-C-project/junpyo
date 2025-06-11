@@ -6,27 +6,30 @@
   <link rel="stylesheet" href="home.css">
   <link rel="icon" href="../IMG/junpyo-icon.png">
   <script src="home.js"></script>
+  <script src="intelligence.js"></script>
   <title>준표 키우기 - 홈</title>
 </head>
 <body>
   <div class="background">
     <img src="../IMG/charater.png" class="charater" alt="캐릭터">
   </div>
-  <div class="left-container">
+  <div class="top-container">
     <div class="major-bar">
       <div id="result"></div>
     </div>
+    <div class="challenge-box">
+      <button>
+        <img id="challenge" src="../IMG/도전과제.png" alt="도전과제">
+      </button>
+    </div>
+  </div>
     <div class="int-bar">
       지능: <span id="intelligence">0</span>
     </div>
     <div class="low-button">
       <input type="button" id="up" value="업그레이드">
-      <input type="button" id="shop" value="상점">
+      <!-- <input type="button" id="shop" value="상점"> -->
       <input type="button" id="study" onclick="gianRandomIntalligence()" value="공부">
     </div>
-    <div class="challenge">
-      
-    </div>
-  </div>
 </body>
 </html>
