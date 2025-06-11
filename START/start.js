@@ -4,7 +4,7 @@ const body = document.body;
 // 눈 반복
 for (let i = 0; i < snowCount; i++) {
   const snow = document.createElement("img");
-  snow.src = "IMG/snow.png"; //눈 이미지 넣기
+  snow.src = "../IMG/snow.png"; //눈 이미지 넣기
   snow.className = "snow";
   
   // 눈 랜덤 위치
