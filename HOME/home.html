@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="home.css">
-  <link rel="icon" href="../IMG/junpyo-icon.png">
-  <script src="home.js"></script>
-  <script src="intelligence.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="../IMG/junpyo-icon.png" />
+
+  <!-- 둘 다 defer로 로드 (순서 중요: intelligence.js 먼저) -->
+  <script src="intelligence.js" defer></script>
+  <script src="home.js" defer></script>
+
   <title>준표 키우기 - 홈</title>
 </head>
 <body>
   <div class="background">
-    <img src="../IMG/charater.png" class="charater" alt="캐릭터">
+    <img src="../IMG/character.png" class="character" alt="캐릭터" />
   </div>
+
   <div class="top-container">
     <div class="major-bar">
       <div id="result"></div>
     </div>
   </div>
-    <div class="int-bar">
-      IQ :&nbsp;<span id="intelligence">0</span>
-    </div>
-    <div class="low-button">
-      <input type="button" id="up" value="업그레이드">
-      <input type="button" id="study" onclick="gianRandomIntalligence()" value="공부">
+
+  <div class="int-bar">
+    IQ :&nbsp;<span id="intelligence">0</span>
+  </div>
+
+  <div class="low-button">
+    <input type="button" id="up" value="업그레이드" />
+    <input type="button" id="study" value="공부" />
+    <a href="../OPTION/HTML/challenge.html">
       <input type="button" id="challenge" value="도전과제">
-      <input type="button" id="store" value="상점">
-    </div>
+    </a>
+    <input type="button" id="store" value="상점" />
+  </div>
 </body>
 </html>
