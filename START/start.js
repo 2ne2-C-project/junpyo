@@ -14,5 +14,12 @@ for (let i = 0; i < snowCount; i++) {
   snow.style.animationDelay = Math.random() * 15 + "s";
   body.appendChild(snow);
 }
+document.addEventListener("click", () => {
+  // body에 fade-out 클래스 추가
+  document.body.classList.add("fade-out");
 
-// 구름 -> 눈으로 바꾸기기
+  // 애니메이션이 끝난 후 페이지 이동
+  setTimeout(() => {
+    window.location.href = "../SELECT/select.html"; // 실제 경로에 맞게 수정
+  }, 800); // fadeOut 애니메이션 시간과 동일 (0.8초)
+});

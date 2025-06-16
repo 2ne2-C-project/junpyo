@@ -5,7 +5,7 @@ function getQueryParam(name) {
 
 window.onload = function() {
   const choice = getQueryParam('choice');
-  document.getElementById('result').textContent = `전공: ${choice}`;
+  document.getElementById('result').textContent = `전공 : ${choice}`;
 };
 
 // 초기 지능값

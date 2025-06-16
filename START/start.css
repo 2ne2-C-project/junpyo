@@ -1,10 +1,9 @@
 @font-face {
-  font-family: 'DungGeunMo';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'GowunDodum-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-
 body {
   background-image: url(../IMG/background.png);
   text-align: center;
@@ -15,11 +14,11 @@ body {
 
 .snow {
   position: absolute;
-  top: -200px; /*눈 시작 위치*/
+  top: -177px; /*눈 시작 위치*/
   animation: fall 0.01s linear infinite; 
   z-index: 0;
   box-sizing: content-box;
-  width: 80px;
+  width: 30px;
 }
 
 @keyframes fall {
@@ -38,11 +37,15 @@ body {
   padding: 20px;
   z-index: 10;
   position: relative;
-  font-family: 'DungGeunMo';
+  font-family: 'GowunDodum-Regular';
   font-weight: 500;
   display: flex;
   align-items: baseline;
   justify-content: center;
+  user-select: none;       /* 텍스트 선택 방지 */
+      -webkit-user-select: none; /* 사파리 */
+      -moz-user-select: none;    /* 파이어폭스 */
+      -ms-user-select: none;     /* IE */
 }
 
 h1 {
@@ -66,14 +69,6 @@ button {
   margin-top: 3vh;
 }
 
-#start-button {
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 0 90px gainsboro;
-  border-radius: 20px;
-}
-
 /* 마우스 가져다 대면 나타나는 효과 */
 #start-button:hover { 
   box-shadow: 0 0 90px skyblue;
@@ -94,4 +89,22 @@ button {
 #StartButton {
   width: 200px;
   height: 80px;
+}
+
+/* 페이드아웃 애니메이션 */
+.fade-out {
+  animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(5px);
+  }
 }
