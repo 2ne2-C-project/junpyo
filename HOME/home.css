@@ -87,6 +87,7 @@ button {
 }
 
 /* challenge 버튼 우상단 고정 */
+/* 효은이가 바꿀 것 */
 #challenge {
   position: absolute;
   top: 20px;
