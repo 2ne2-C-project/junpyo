@@ -1,5 +1,17 @@
 @import url('https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
 
+/* 드래그 방지 */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+* {
+  font-family: 'Galmuri9', sans-serif;
+}
+
 body {
   background-image: url(../IMG/class_background.png);
   background-size: cover;
@@ -44,6 +56,10 @@ input[type="button"]:hover {
   box-shadow: 4px 4px 0 #000;
 }
 
+a {
+  width: 20vh;
+}
+
 .top-container {
   display: flex;
   justify-content: space-between;
@@ -73,21 +89,7 @@ button {
   box-shadow: 3px 3px 0 #000;
 }
 
-/* 드래그 방지 */
-* {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* 폰트 적용 */
-* {
-  font-family: 'Galmuri9', sans-serif;
-}
-
 /* challenge 버튼 우상단 고정 */
-/* 효은이가 바꿀 것 */
 #challenge {
   position: absolute;
   top: 1px;
@@ -96,3 +98,90 @@ button {
   border: 2px solid black;
   box-shadow: 3
 }
+
+/* 학생증 */
+.StudentId {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.student-id {
+  margin-right: 15px;
+  background-color: white;
+  width: 60vh;
+  height: 35vh;
+  border-radius: 30px;
+  border: 2px solid black;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.group {
+  display: flex;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.imformation {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+#kimjunpyo {
+  font-size: 30px;
+}
+
+#birthday {
+  font-size: 20px;
+}
+
+.id-photo {
+  margin-left: 25px;
+  width: 18vh;
+  border: 0.1px solid gray;
+}
+
+.experience {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.bar {
+  margin-top: 5px;
+  display: block;
+  --height-of-loader: 20px;
+  --loader-color: #0071e2;
+  width: 200px;
+  height: var(--height-of-loader);
+  border-radius: 30px;
+  background-color: rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.bar::before {
+  content: "";
+  position: absolute;
+  background: var(--loader-color);
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border-radius: 30px;
+  animation: moving 1s ease-in-out infinite;
+  ;
+}
+
+/* @keyframes moving {
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+    right: 0;
+    left: unset;
+  }
+} */

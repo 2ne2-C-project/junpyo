@@ -4,6 +4,8 @@
     font-weight: normal;
     font-style: normal;
 }
+
+
 body {
   background-image: url(../IMG/background.png);
   text-align: center;
@@ -108,3 +110,12 @@ button {
     filter: blur(5px);
   }
 }
+
+@import url('https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+
+.click {
+  font-family: 'Galmuri9', sans-serif;
+  font-size: 20px;
+  color: white;
+}
+
