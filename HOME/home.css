@@ -89,7 +89,7 @@ button {
 .int-bar,
 .major-bar {
   margin: 10px 0 0 10px;
-  padding-left: 50px;
+  padding: 0 20px 0 30px;
   background-color: #FFF9EF;
   width: 30vh;
   height: 10vh;
