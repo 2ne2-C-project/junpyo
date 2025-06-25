@@ -45,9 +45,9 @@ body {
   align-items: baseline;
   justify-content: center;
   user-select: none;       /* 텍스트 선택 방지 */
-      -webkit-user-select: none; /* 사파리 */
-      -moz-user-select: none;    /* 파이어폭스 */
-      -ms-user-select: none;     /* IE */
+  -webkit-user-select: none; /* 사파리 */
+  -moz-user-select: none;    /* 파이어폭스 */
+  -ms-user-select: none;     /* IE */
 }
 
 h1 {

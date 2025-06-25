@@ -13,6 +13,7 @@
   <title>준표 키우기 - 홈</title>
 </head>
 <body>
+  <pre id="result"></pre>
   <div class="background">
     <img src="../IMG/character.png" class="character" alt="캐릭터" />
   </div>
@@ -24,7 +25,7 @@
   </div>
 
   <div class="int-bar">
-    IQ :&nbsp;<span id="intell">0</span>
+    IQ :&nbsp;<span id="inllet">0</span>
   </div>
 
   <div class="left-button">
@@ -54,7 +55,7 @@
             <span id="birthday">090106</span>
             <div class="experience">
               <span>경험치: </span>
-              <span id="intelligence">0</span> / 100
+              <span id="intelligence">0</span>
               <div class="bar">
                 <div id="xp-bar"></div>
               </div>
@@ -63,5 +64,13 @@
       </div>
     </div>
   </div>
+  <script>
+    async function loadSession() {
+      const uuid = "abc123"; // 테스트용 UUID
+      const response = await fetch('http://localhost:8080/api/game');
+      const data = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
 </body>
 </html>
