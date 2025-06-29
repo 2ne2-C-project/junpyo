@@ -4,7 +4,7 @@ const ctx = $c.getContext(`2d`);
 
 const menuAdd = document.querySelector('#menuAdd');
 // 돌림판 항목과 색상 배열
-const product = ["IQ 10 증가", "상품 획득", "IQ 10 감소", "IQ 5 증가", "IQ 5 감소"];
+const product = ["level 5 증가", "상품 획득", "level 5 감소", "경험치 50 증가", "경험치 50 감소"];
 const colors = [];
 
 // 돌림판 다시 그리기 함수
