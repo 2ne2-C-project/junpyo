@@ -92,6 +92,19 @@ button {
   z-index: 22;
 }
 
+#wheelWrapper {
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid #ccc; /* 보이는지 테스트용 */
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+
 /* .modal 
 .modal_popup {
   position: absolute;

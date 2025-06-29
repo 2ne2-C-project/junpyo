@@ -6,9 +6,6 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-* {
   font-family: 'Galmuri9', sans-serif;
 }
 
@@ -21,11 +18,15 @@ body {
   overflow: hidden;
 }
 
+.background {
+}
+
 .character {
   position: absolute;
   left: 39%;
   bottom: 2%;
   width: 280px;
+  height: 80vh;
 }
 
 .left-button {
@@ -43,25 +44,27 @@ body {
 }
 
 /* 버튼 디자인 개선 */
-input[type="button"] {
+input[type="button"],
+button {
   width: 240px;
   height: 100px;
   cursor: pointer;
   margin-top: 10px;
-  background-color: #FFF9EF;
+  /* background-color: #FFF9EF;
   border: 5px solid #F8E8C1;
-  box-shadow: 3px 3px 0 #A67C52;
+  box-shadow: 3px 3px 0 #A67C52; */
   font-family: 'Galmuri9', sans-serif;
   font-size: 25px;
   transition: all 0.1s ease-in-out;
   border-radius: 10px;
 }
 
-input[type="button"]:hover {
-  background-color: #FDF6E3;
+input[type="button"]:hover,
+button:hover {
   transform: translateY(-2px);
-  box-shadow: 5px 5px 0 #7B5E45;
-  border-radius: 10px;
+  /* background-color: #FDF6E3; */
+  /* box-shadow: 5px 5px 0 #7B5E45;
+  border-radius: 10px; */
 }
 
 a {
@@ -107,9 +110,14 @@ button {
   position: absolute;
   top: 1px;
   right: 20px;
-  background-color: #FFF9EF;
-  border: 5px solid #F8E8C1;
-  box-shadow: 3
+  width: 12vh;
+  height: 10vh;
+  
+}
+
+img {
+  width: 100%;
+  height: 100%;
 }
 
 /* 학생증 */

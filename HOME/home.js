@@ -1,3 +1,4 @@
+const base = "192.168.0.31";
 let userLevel = 0;
 let currentXP = 0;
 let maxXP = 10;
@@ -38,7 +39,22 @@ function displayMajor() {
   }
 }
 
-// 저장
+// 저장 - 버튼으로 수동 저장
+function saveToServer() {
+  fetch(`http://${base}:8080/api/users/save`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      uuid,
+      level: userLevel,
+      exp: currentXP,
+      iq: intelligence
+    })
+  }).then(res => res.text())
+    .then(msg => console.log("서버 저장 결과:", msg));
+}
+
+// 로컬 저장
 function saveProgress() {
   localStorage.setItem("userLevel", userLevel);
   localStorage.setItem("currentXP", currentXP);
@@ -57,14 +73,14 @@ function init() {
   updateXPUI();
   displayMajor();
 
-  // 클릭 시 경험치 증가 (버튼 제외)
+  // 클릭 시 경험치 증가
   document.addEventListener('click', (e) => {
     if (["INPUT", "A", "BUTTON"].includes(e.target.tagName)) return;
     gainXP(1);
     saveProgress();
   });
 
-  // 업그레이드 클릭
+  // 업그레이드 버튼
   document.getElementById("up").addEventListener("click", () => {
     if (currentXP < maxXP) return;
 
@@ -77,7 +93,7 @@ function init() {
     updateXPUI();
     saveProgress();
 
-    fetch(`http://localhost:8080/api/session/${uuid}/upgrade`, {
+    fetch(`http://${base}:8080/api/${uuid}/upgrade`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -86,15 +102,16 @@ function init() {
         iq: intelligence
       })
     }).then(res => res.text())
-      .then(msg => {
-        console.log("업그레이드 저장 결과:", msg);
-      });
+      .then(msg => console.log("업그레이드 결과:", msg));
   });
+
+  // 저장 버튼 (id="saveBtn")
+  // document.getElementById("saveBtn").addEventListener("click", saveToServer);
 }
 
-// DOMContentLoaded에서 초기화 + uuid 설정 + 서버 불러오기
+// DOMContentLoaded 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-  // UUID 준비
+  // UUID 설정
   if (!localStorage.getItem('uuid')) {
     uuid = crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
@@ -102,13 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
     uuid = localStorage.getItem('uuid');
   }
 
-  // ✅ /api/test 호출 추가 (여기!)
-  fetch("http://localhost:8080/api/test")
+  // 테스트 호출
+  fetch(`http://${base}:8080/api/test`)
     .then(res => res.text())
     .then(data => console.log("[/api/test 응답]", data));
 
-  // 서버에서 데이터 불러오기
-  fetch(`http://localhost:8080/api/session/${uuid}`)
+  // 불러오기
+  fetch(`http://${base}:8080/api/${uuid}`)
     .then(res => res.json())
     .then(data => {
       userLevel = data.level ?? 0;
@@ -121,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("데이터 불러오기 실패:", err);
     });
 
-  // 주기 저장
+  // 주기 저장 (5초마다)
   setInterval(() => {
-    fetch(`http://localhost:8080/api/session/${uuid}/upgrade`, {
+    fetch(`http://${base}:8080/api/${uuid}/update`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
