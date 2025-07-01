@@ -1350,11 +1350,12 @@ function checkIncomingModuleAPI() {
 }
 
 // Imports from the Wasm binary.
-var _get_max_exp = Module['_get_max_exp'] = makeInvalidEarlyAccess('_get_max_exp');
 var _click = Module['_click'] = makeInvalidEarlyAccess('_click');
 var _get_exp = Module['_get_exp'] = makeInvalidEarlyAccess('_get_exp');
 var _get_level = Module['_get_level'] = makeInvalidEarlyAccess('_get_level');
+var _get_max_exp = Module['_get_max_exp'] = makeInvalidEarlyAccess('_get_max_exp');
 var _upgrade = Module['_upgrade'] = makeInvalidEarlyAccess('_upgrade');
+var _gain_level = Module['_gain_level'] = makeInvalidEarlyAccess('_gain_level');
 var _fflush = makeInvalidEarlyAccess('_fflush');
 var _emscripten_stack_init = makeInvalidEarlyAccess('_emscripten_stack_init');
 var _emscripten_stack_get_free = makeInvalidEarlyAccess('_emscripten_stack_get_free');
@@ -1365,11 +1366,12 @@ var __emscripten_stack_alloc = makeInvalidEarlyAccess('__emscripten_stack_alloc'
 var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_get_current');
 
 function assignWasmExports(wasmExports) {
-  Module['_get_max_exp'] = _get_max_exp = createExportWrapper('get_max_exp', 0);
   Module['_click'] = _click = createExportWrapper('click', 0);
   Module['_get_exp'] = _get_exp = createExportWrapper('get_exp', 0);
   Module['_get_level'] = _get_level = createExportWrapper('get_level', 0);
+  Module['_get_max_exp'] = _get_max_exp = createExportWrapper('get_max_exp', 0);
   Module['_upgrade'] = _upgrade = createExportWrapper('upgrade', 0);
+  Module['_gain_level'] = _gain_level = createExportWrapper('gain_level', 1);
   _fflush = createExportWrapper('fflush', 1);
   _emscripten_stack_init = wasmExports['emscripten_stack_init'];
   _emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'];
