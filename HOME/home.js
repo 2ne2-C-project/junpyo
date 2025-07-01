@@ -57,9 +57,18 @@ function init() {
   updateXPUI();
   displayMajor();
 
-  // 클릭 시 경험치 증가
+  // 클릭 시 경험치 증가 (예외: 특정 태그 또는 특정 id)
   document.addEventListener('click', (e) => {
-    if (["INPUT", "A", "BUTTON"].includes(e.target.tagName)) return;
+    const tag = e.target.tagName;
+    const closestUp = e.target.closest('#up');
+    const closestChallenge = e.target.closest('#challenge');
+    const closestStore = e.target.closest('#store');
+    
+    if (
+      ["INPUT", "A", "BUTTON"].includes(tag) ||
+      closestUp || closestChallenge || closestStore
+    ) return;
+
     gainXP(1);
     saveProgress();
   });
@@ -81,7 +90,7 @@ function init() {
 
 // DOMContentLoaded 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-  // UUID 설정 (필요 없다면 이 부분도 삭제 가능)
+  // UUID 설정
   if (!localStorage.getItem('uuid')) {
     uuid = crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
@@ -119,4 +128,3 @@ function spawnParticles(e) {
     }, 600);
   }
 }
-

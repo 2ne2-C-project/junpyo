@@ -20,12 +20,12 @@ body {
 
 .particle {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 15px;
+  height: 15px;
   background: #FFD700; /* 황금색 */
-  border-radius: 50%;
+  border-radius: 100%;
   pointer-events: none;
-  animation: explode 600ms ease-out forwards;
+  animation: explode 800ms ease-out forwards;
 }
 
 @keyframes explode {
@@ -39,7 +39,7 @@ body {
   }
 }
 
-
+/* 준표 숨 쉬는 거 */
 @keyframes breathe {
   0% {
     transform: translateY(0) scale(1);
