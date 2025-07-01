@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: url(../IMG/BackGround_end.png);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-color: #d0e8f2;
+  transform: scale(1);
+  transform-origin: top left;
+}
+
+.background {
+  position: relative;
+  z-index: 1;
+}
+
+.character {
+   position: absolute;
+  left: 34%;
+  bottom: 5%;
+  top: 5vh;
+  width: 50vh;
+  height: 80vh;
+  z-index: 5;
+}
+
+.card {
+   position: absolute;
+  top: -90px;              
+  left: 50%;
+  transform: translateX(-50%);  
+  height: 60vh;          
+  width: auto;            
+  z-index: 2;
+}
+
+canvas {
+  position: fixed;      
+  top: 0;
+  left: 0;
+  width: 100vw;         
+  height: 100vh;          
+  display: block;
+  pointer-events: none;     
+  z-index: 9999;               
+}

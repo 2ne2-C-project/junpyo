@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>준표 키우기 - 엔딩</title>
+  <link rel="stylesheet" href="end.css">
+  <link rel="icon" href="../IMG/junpyo-icon.png">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #111;
+    }
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .background {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .character {
+      margin-top: 100px;
+      height: 80vh;
+      width: auto;
+    }
+    .card {
+      position: absolute;
+      top: -90px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 480px;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <img src="../IMG/현수막_찐찐찐막.png" class="card" alt="취업 축하 배너">
+    <img src="../IMG/Old_Junpyo.png" class="character" alt="캐릭터">
+  </div>
+
+  <!-- canvas는 제일 마지막에 배치! -->
+  <canvas id="canvas"></canvas>
+</body>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 2;
+        this.speedX = Math.random() * 4 - 2;
+        this.speedY = Math.random() * 4 - 2;
+        this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        this.life = 100;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life--;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function handleParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].life <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      handleParticles();
+      requestAnimationFrame(animate);
+    }
+
+    function burst(x, y, count = 30) {
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+      }
+    }
+
+    // 🎉 처음 한 번 화면 중앙에서 자동 터짐
+    window.addEventListener('load', () => {
+      burst(window.innerWidth / 2, window.innerHeight / 2);
+    });
+
+    // 💥 클릭하면 터짐
+    window.addEventListener('click', (e) => {
+      burst(e.clientX, e.clientY);
+    });
+
+    animate();
+  </script>
+</body>
+</html>
