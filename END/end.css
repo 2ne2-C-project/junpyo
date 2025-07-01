@@ -18,7 +18,7 @@ body {
 }
 
 .character {
-   position: absolute;
+  position: absolute;
   left: 34%;
   bottom: 5%;
   top: 5vh;
@@ -28,7 +28,7 @@ body {
 }
 
 .card {
-   position: absolute;
+  position: absolute;
   top: -90px;              
   left: 50%;
   transform: translateX(-50%);  

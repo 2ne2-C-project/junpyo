@@ -63,7 +63,7 @@ function init() {
     const closestUp = e.target.closest('#up');
     const closestChallenge = e.target.closest('#challenge');
     const closestStore = e.target.closest('#store');
-    
+
     if (
       ["INPUT", "A", "BUTTON"].includes(tag) ||
       closestUp || closestChallenge || closestStore
@@ -71,6 +71,7 @@ function init() {
 
     gainXP(1);
     saveProgress();
+    spawnPlusOne(e); // 여기서 +1 이미지 등장
   });
 
   // 업그레이드 버튼
@@ -101,30 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
   init();
 });
 
-function spawnParticles(e) {
-  const count = 10; // 파티클 개수
-  for (let i = 0; i < count; i++) {
-    const particle = document.createElement("div");
-    particle.classList.add("particle");
+// 클릭 시 +1 이미지 생성
+function spawnPlusOne(e) {
+  const plus = document.createElement("div");
+  plus.classList.add("plus-one");
 
-    // 클릭 위치에 파티클 위치 지정
-    particle.style.left = `${e.clientX}px`;
-    particle.style.top = `${e.clientY}px`;
+  plus.style.left = `${e.clientX}px`;
+  plus.style.top = `${e.clientY}px`;
 
-    // 방향 랜덤 설정
-    const angle = Math.random() * 2 * Math.PI;
-    const radius = Math.random() * 40 + 10;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
+  document.body.appendChild(plus);
 
-    particle.style.setProperty('--x', `${x}px`);
-    particle.style.setProperty('--y', `${y}px`);
-
-    document.body.appendChild(particle);
-
-    // 애니메이션 후 제거
-    setTimeout(() => {
-      particle.remove();
-    }, 600);
-  }
+  setTimeout(() => {
+    plus.remove();
+  }, 800);
 }

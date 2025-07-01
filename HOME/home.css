@@ -18,11 +18,37 @@ body {
   overflow: hidden;
 }
 
+.plus-one {
+  position: absolute;
+  width: 20vh;
+  height: 20vh;
+  background-image: url(../IMG/puls1.png); /* 도트 +1 이미지 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: riseAndFade 0.8s ease-out forwards;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+@keyframes riseAndFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -80%) scale(1.3);
+  }
+}
+
 .particle {
   position: absolute;
   width: 15px;
   height: 15px;
-  background: #FFD700; /* 황금색 */
+  background-image: url(../IMG/puls1.png); /* 황금색 */
+  background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 100%;
   pointer-events: none;
   animation: explode 800ms ease-out forwards;
@@ -238,40 +264,3 @@ h1 {
   background-color: #cc9880;
   transition: width 0.3s ease;
 }
-
-/* .bar {
-  margin-top: 5px;
-  display: block;
-  --height-of-loader: 20px;
-  --loader-color: #0071e2;
-  width: 200px;
-  height: var(--height-of-loader);
-  border-radius: 30px;
-  background-color: rgba(0,0,0,0.2);
-  position: relative;
-}
-
-.bar::before {
-  content: "";
-  position: absolute;
-  background: var(--loader-color);
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  border-radius: 30px;
-  animation: moving 1s ease-in-out infinite;
-  ;
-} */
-
-/* @keyframes moving {
-  50% {
-    width: 100%;
-  }
-
-  100% {
-    width: 0;
-    right: 0;
-    left: unset;
-  }
-} */
