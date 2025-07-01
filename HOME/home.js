@@ -1,4 +1,3 @@
-const base = "192.168.0.31";
 let userLevel = 0;
 let currentXP = 0;
 let maxXP = 10;
@@ -39,21 +38,6 @@ function displayMajor() {
   }
 }
 
-// 저장 - 버튼으로 수동 저장
-function saveToServer() {
-  fetch(`http://${base}:8080/api/users/save`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      uuid,
-      level: userLevel,
-      exp: currentXP,
-      iq: intelligence
-    })
-  }).then(res => res.text())
-    .then(msg => console.log("서버 저장 결과:", msg));
-}
-
 // 로컬 저장
 function saveProgress() {
   localStorage.setItem("userLevel", userLevel);
@@ -92,26 +76,12 @@ function init() {
     displayInitialLevel();
     updateXPUI();
     saveProgress();
-
-    fetch(`http://${base}:8080/api/${uuid}/upgrade`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        level: userLevel,
-        exp: currentXP,
-        iq: intelligence
-      })
-    }).then(res => res.text())
-      .then(msg => console.log("업그레이드 결과:", msg));
   });
-
-  // 저장 버튼 (id="saveBtn")
-  // document.getElementById("saveBtn").addEventListener("click", saveToServer);
 }
 
 // DOMContentLoaded 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-  // UUID 설정
+  // UUID 설정 (필요 없다면 이 부분도 삭제 가능)
   if (!localStorage.getItem('uuid')) {
     uuid = crypto.randomUUID();
     localStorage.setItem('uuid', uuid);
@@ -119,37 +89,34 @@ document.addEventListener('DOMContentLoaded', () => {
     uuid = localStorage.getItem('uuid');
   }
 
-  // 테스트 호출
-  fetch(`http://${base}:8080/api/test`)
-    .then(res => res.text())
-    .then(data => console.log("[/api/test 응답]", data));
-
-  // 불러오기
-  fetch(`http://${base}:8080/api/${uuid}`)
-    .then(res => res.json())
-    .then(data => {
-      userLevel = data.level ?? 0;
-      currentXP = data.exp ?? 0;
-      intelligence = data.iq ?? 0;
-      displayInitialLevel();
-      updateXPUI();
-    })
-    .catch(err => {
-      console.error("데이터 불러오기 실패:", err);
-    });
-
-  // 주기 저장 (5초마다)
-  setInterval(() => {
-    fetch(`http://${base}:8080/api/${uuid}/update`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        level: userLevel,
-        exp: currentXP,
-        iq: intelligence
-      })
-    });
-  }, 5000);
-
   init();
 });
+
+function spawnParticles(e) {
+  const count = 10; // 파티클 개수
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
+
+    // 클릭 위치에 파티클 위치 지정
+    particle.style.left = `${e.clientX}px`;
+    particle.style.top = `${e.clientY}px`;
+
+    // 방향 랜덤 설정
+    const angle = Math.random() * 2 * Math.PI;
+    const radius = Math.random() * 40 + 10;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    particle.style.setProperty('--x', `${x}px`);
+    particle.style.setProperty('--y', `${y}px`);
+
+    document.body.appendChild(particle);
+
+    // 애니메이션 후 제거
+    setTimeout(() => {
+      particle.remove();
+    }, 600);
+  }
+}
+
