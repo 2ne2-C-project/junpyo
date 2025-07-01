@@ -1,33 +1,65 @@
-let userLevel = 0;
-let currentXP = 0;
-let maxXP = 10;
-let intelligence = 0;
-let uuid = null;
+let click, getExp, getLevel, getMaxExp, upgrade, gainLevel;
 
-// 경험치 증가
-function gainXP(amount) {
-  if (currentXP >= maxXP) return;
-  currentXP += amount;
-  if (currentXP > maxXP) currentXP = maxXP;
+Module.onRuntimeInitialized = () => {
+  // WebAssembly 함수 연결
+  click = Module.cwrap("click", null, []);
+  getExp = Module.cwrap("get_exp", "number", []);
+  getLevel = Module.cwrap("get_level", "number", []);
+  getMaxExp = Module.cwrap("get_max_exp", "number", []);
+  upgrade = Module.cwrap("upgrade", "number", []);
+  gainLevel = Module.cwrap("gain_level", null, ["number"]);
+
+  // 초기화
+  displayInitialLevel();
   updateXPUI();
-}
+  displayMajor();
 
-// UI 업데이트
+  // 화면 클릭 시 경험치 +1 (특정 요소 제외)
+  document.addEventListener("click", (e) => {
+    const tag = e.target.tagName;
+    const id = e.target.closest("button")?.id;
+
+    if (
+      ["INPUT", "A", "BUTTON"].includes(tag) ||
+      ["up", "store", "roulette", "challenge"].includes(id)
+    ) return;
+
+    click();
+    updateXPUI();
+    saveProgress();
+    spawnPlusOne(e);
+  });
+
+  // 업그레이드 버튼 클릭 시 레벨업
+  document.getElementById("up").addEventListener("click", () => {
+    const success = upgrade();
+    if (success) {
+      displayInitialLevel();
+      updateXPUI();
+      saveProgress();
+    } else {
+      alert("경험치가 부족합니다!");
+    }
+  });
+};
+
+// 경험치 UI 업데이트
 function updateXPUI() {
-  const percent = (currentXP / maxXP) * 100;
-  document.getElementById("xp-bar").style.width = percent + "%";
-  document.getElementById("intelligence").innerText = currentXP + " / " + maxXP;
+  const current = getExp();
+  const max = getMaxExp();
+  document.getElementById("xp-bar").style.width = (current / max) * 100 + "%";
+  document.getElementById("intelligence").innerText = current + " / " + max;
 }
 
-// 레벨 텍스트 업데이트
+// 레벨 UI 표시
 function displayInitialLevel() {
-  document.getElementById("inllet").textContent = userLevel;
+  document.getElementById("inllet").textContent = getLevel();
 }
 
-// 전공 출력
+// 전공 표시
 function displayMajor() {
   const urlParams = new URLSearchParams(window.location.search);
-  const choice = urlParams.get('choice');
+  const choice = urlParams.get("choice");
 
   if (choice) {
     localStorage.setItem("major", choice);
@@ -38,81 +70,26 @@ function displayMajor() {
   }
 }
 
-// 로컬 저장
-function saveProgress() {
-  localStorage.setItem("userLevel", userLevel);
-  localStorage.setItem("currentXP", currentXP);
-  localStorage.setItem("maxXP", maxXP);
-  localStorage.setItem("intelligence", intelligence);
-}
-
-// 초기화
-function init() {
-  userLevel = parseInt(localStorage.getItem("userLevel")) || 0;
-  currentXP = parseInt(localStorage.getItem("currentXP")) || 0;
-  maxXP = parseInt(localStorage.getItem("maxXP")) || 10;
-  intelligence = parseInt(localStorage.getItem("intelligence")) || 0;
-
-  displayInitialLevel();
-  updateXPUI();
-  displayMajor();
-
-  // 클릭 시 경험치 증가 (예외: 특정 태그 또는 특정 id)
-  document.addEventListener('click', (e) => {
-    const tag = e.target.tagName;
-    const closestUp = e.target.closest('#up');
-    const closestChallenge = e.target.closest('#challenge');
-    const closestStore = e.target.closest('#store');
-
-    if (
-      ["INPUT", "A", "BUTTON"].includes(tag) ||
-      closestUp || closestChallenge || closestStore
-    ) return;
-
-    gainXP(1);
-    saveProgress();
-    spawnPlusOne(e); // 여기서 +1 이미지 등장
-  });
-
-  // 업그레이드 버튼
-  document.getElementById("up").addEventListener("click", () => {
-    if (currentXP < maxXP) return;
-
-    userLevel += 1;
-    intelligence += 1;
-    currentXP = 0;
-    maxXP = Math.floor(maxXP * 1.2);
-
-    displayInitialLevel();
-    updateXPUI();
-    saveProgress();
-  });
-}
-
-// DOMContentLoaded 시 초기화
-document.addEventListener('DOMContentLoaded', () => {
-  // UUID 설정
-  if (!localStorage.getItem('uuid')) {
-    uuid = crypto.randomUUID();
-    localStorage.setItem('uuid', uuid);
-  } else {
-    uuid = localStorage.getItem('uuid');
+// UUID 저장 및 불러오기
+document.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("uuid")) {
+    localStorage.setItem("uuid", crypto.randomUUID());
   }
-
-  init();
 });
 
-// 클릭 시 +1 이미지 생성
+// 저장
+function saveProgress() {
+  localStorage.setItem("level", getLevel());
+  localStorage.setItem("exp", getExp());
+  localStorage.setItem("maxExp", getMaxExp());
+}
+
+// 클릭 효과 +1
 function spawnPlusOne(e) {
   const plus = document.createElement("div");
   plus.classList.add("plus-one");
-
   plus.style.left = `${e.clientX}px`;
   plus.style.top = `${e.clientY}px`;
-
   document.body.appendChild(plus);
-
-  setTimeout(() => {
-    plus.remove();
-  }, 800);
+  setTimeout(() => plus.remove(), 800);
 }
