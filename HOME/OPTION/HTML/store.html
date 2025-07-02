@@ -15,7 +15,7 @@
   <div class="shop-container">
     <div class="item">
       <div class="item-info">
-        <span class="item-name">상품 1</span>
+        <span class="item-name">김준표 사진 1</span>
         <span class="item-price">경험치 20</span>
       </div>
       <button class="buy-button">구매하기</button>
@@ -23,7 +23,7 @@
 
     <div class="item">
       <div class="item-info">
-        <span class="item-name">상품 2</span>
+        <span class="item-name">김준표 사진 2</span>
         <span class="item-price">경험치 35</span>
       </div>
       <button class="buy-button">구매하기</button>
@@ -31,11 +31,28 @@
 
     <div class="item">
       <div class="item-info">
-        <span class="item-name">상품 3</span>
+        <span class="item-name">김준표 사진 3</span>
         <span class="item-price">경험치 50</span>
       </div>
       <button class="buy-button">구매하기</button>
     </div>
   </div>
+   </div> <!-- .shop-container 닫힘 -->
+
+  <script>
+    const buyButtons = document.querySelectorAll('.buy-button');
+
+    buyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        button.textContent = '구매 완료';
+        button.disabled = true;
+        button.style.backgroundColor = '#e0e0e0';
+        button.style.color = '#777';
+        button.style.cursor = 'default';
+        button.style.boxShadow = 'none';
+        button.style.transform = 'none';
+      });
+    });
+  </script>
 </body>
 </html>
